@@ -15,4 +15,14 @@ class User extends Authenticatable
     ];
 
     public $timestamps = false;
+
+    public function emails()
+    {
+        return $this->hasMany('App\Email');
+    }
+
+    public function departments()
+    {
+        return $this->belongsToMany('App\Department');
+    }
 }
