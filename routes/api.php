@@ -15,3 +15,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/users', 'API\UserController@index');
+Route::get('/departments', 'API\DepartmentController@index');
+Route::post('/emails', 'API\EmailController@store');
