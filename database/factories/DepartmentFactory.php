@@ -7,6 +7,7 @@ use Faker\Generator as Faker;
 
 $factory->define(Department::class, function (Faker $faker) {
     return [
-        'name' => $faker->company,
+        'name' => $name = $faker->unique()->company,
+        'slug' => Str::slug($name),
     ];
 });

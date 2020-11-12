@@ -11,8 +11,15 @@ class UserController extends Controller
 {
     public function index()    
     {   
-    	return UserResource::collection(
-    		User::get()
-    	);
+    	if (request()->department) {      
+        	$users = User::with('departments')->whereHas('departments', function ($query) {
+            	$query->where('slug', request()->department);
+           	})->get();
+
+       	}	else {
+        		$users = User::get();       
+     	}
+
+    	return UserResource::collection($users);
     }
 }

@@ -1,33 +1,22 @@
 <template>
     <div>
+        
         <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">First</th>
-                        <th scope="col">Last</th>
-                        <th scope="col">Handle</th>
+                        <th scope="col">id</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Email Addresses</th>
+                        <th scope="col">Departments</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Larry</td>
-                        <td>the Bird</td>
-                        <td>@twitter</td>
-                    </tr>
+                    <tr v-for="user in users" :key="user.id">
+                        <th scope="row">{{ user.id }}</th>
+                        <td>{{ user.name }}</td>
+                        <td>{{ user.emails }}</td>
+                        <td>{{ user.departments }}</td>
+                    </tr>                   
                 </tbody>
         </table>
     </div>
@@ -35,8 +24,36 @@
 
 <script>
     export default {
-        mounted() {
-            console.log('Component mounted.')
-        }
+
+        data() {
+            return {
+                loading: false,
+                users: null,                
+            };
+        }, 
+
+        created() {
+            this.loadUsers();
+        },
+
+        methods: {
+
+            loadUsers: function () {
+                this.loading = true;
+                axios.get(`/api/users`)
+                    .then((response) => {
+                        this.users = response.data.data;                 
+                        this.loading = false;
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        this.loading = false;
+                    });
+            },
+
+
+        },
+
+
     }
 </script>

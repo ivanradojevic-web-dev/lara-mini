@@ -3,10 +3,8 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Http\Resources\EmailResource;
-use App\Http\Resources\DepartmentResource;
 
-class UserResource extends JsonResource
+class EmailResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,9 +16,7 @@ class UserResource extends JsonResource
     {
         return [
             "id" => $this->id,
-            "name" => $this->name, 
-            "emails" => EmailResource::collection($this->emails), 
-            "departments" => DepartmentResource::collection($this->departments),                
+            "address" => $this->address,                 
         ];
     }
 }
