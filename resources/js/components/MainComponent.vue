@@ -33,9 +33,6 @@
                             / {{ department.name }}
                         </span>
                     </td>
-                    <td>
-                        
-                    </td>
                 </tr>                   
             </tbody>
         </table>
