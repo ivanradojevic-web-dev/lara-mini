@@ -1989,6 +1989,7 @@ __webpack_require__.r(__webpack_exports__);
     clearEmail: function clearEmail() {
       this.id = "";
       this.email = "";
+      this.errorMessage = "";
     }
   }
 });
@@ -2005,9 +2006,6 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_AddEmail__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/AddEmail */ "./resources/js/components/AddEmail.vue");
-//
-//
-//
 //
 //
 //
@@ -37988,9 +37986,7 @@ var render = function() {
                   ])
                 }),
                 0
-              ),
-              _vm._v(" "),
-              _c("td")
+              )
             ])
           }),
           0
@@ -50273,14 +50269,15 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /*!**********************************************!*\
   !*** ./resources/js/components/AddEmail.vue ***!
   \**********************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _AddEmail_vue_vue_type_template_id_df4c0134___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AddEmail.vue?vue&type=template&id=df4c0134& */ "./resources/js/components/AddEmail.vue?vue&type=template&id=df4c0134&");
 /* harmony import */ var _AddEmail_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AddEmail.vue?vue&type=script&lang=js& */ "./resources/js/components/AddEmail.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _AddEmail_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _AddEmail_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -50310,7 +50307,7 @@ component.options.__file = "resources/js/components/AddEmail.vue"
 /*!***********************************************************************!*\
   !*** ./resources/js/components/AddEmail.vue?vue&type=script&lang=js& ***!
   \***********************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
