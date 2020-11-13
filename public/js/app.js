@@ -1941,13 +1941,38 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    userId: {
+      type: Number,
+      required: true
+    }
+  },
+  data: function data() {
+    return {
+      email: "",
+      id: this.userId
+    };
+  },
   methods: {
     openModal: function openModal() {
       $('#exampleModalCenter').modal('show');
     },
     addEmail: function addEmail() {
-      alert("zdravo");
+      axios.post('/api/emails', {
+        id: this.id,
+        address: this.email
+      }).then(function (response) {
+        $('#exampleModalCenter').modal('hide');
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    clearEmail: function clearEmail() {
+      this.email = "";
     }
   }
 });
@@ -37694,12 +37719,59 @@ var render = function() {
                 },
                 [
                   _c("div", { staticClass: "modal-body" }, [
-                    _vm._v(
-                      "\n                        ...\n                    "
-                    )
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", {
+                        attrs: { for: "exampleFormControlInput1" }
+                      }),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.email,
+                            expression: "email"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          type: "email",
+                          id: "exampleFormControlInput1",
+                          placeholder: "name@example.com"
+                        },
+                        domProps: { value: _vm.email },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.email = $event.target.value
+                          }
+                        }
+                      })
+                    ])
                   ]),
                   _vm._v(" "),
-                  _vm._m(1)
+                  _c("div", { staticClass: "modal-footer" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-secondary",
+                        attrs: { type: "button", "data-dismiss": "modal" },
+                        on: { click: _vm.clearEmail }
+                      },
+                      [_vm._v("Back")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary",
+                        attrs: { type: "submit" }
+                      },
+                      [_vm._v("Save")]
+                    )
+                  ])
                 ]
               )
             ])
@@ -37732,27 +37804,6 @@ var staticRenderFns = [
           }
         },
         [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-footer" }, [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-secondary",
-          attrs: { type: "button", "data-dismiss": "modal" }
-        },
-        [_vm._v("Back")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-        [_vm._v("Save")]
       )
     ])
   }
@@ -37868,7 +37919,7 @@ var render = function() {
               0
             ),
             _vm._v(" "),
-            _c("td", [_c("add-email")], 1)
+            _c("td", [_c("add-email", { attrs: { userId: user.id } })], 1)
           ])
         }),
         0
@@ -50151,15 +50202,14 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /*!**********************************************!*\
   !*** ./resources/js/components/AddEmail.vue ***!
   \**********************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _AddEmail_vue_vue_type_template_id_df4c0134___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AddEmail.vue?vue&type=template&id=df4c0134& */ "./resources/js/components/AddEmail.vue?vue&type=template&id=df4c0134&");
 /* harmony import */ var _AddEmail_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AddEmail.vue?vue&type=script&lang=js& */ "./resources/js/components/AddEmail.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _AddEmail_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _AddEmail_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -50189,7 +50239,7 @@ component.options.__file = "resources/js/components/AddEmail.vue"
 /*!***********************************************************************!*\
   !*** ./resources/js/components/AddEmail.vue?vue&type=script&lang=js& ***!
   \***********************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

@@ -34,7 +34,7 @@
                         </span>
                     </td>
                     <td>
-                        <add-email></add-email>
+                        <add-email :userId="user.id"></add-email>
                     </td>
                 </tr>                   
             </tbody>
@@ -57,7 +57,8 @@ import AddEmail from "../components/AddEmail";
                 loading: false,
                 users: null, 
                 departments: [],
-                queryslug: "",               
+                queryslug: "",
+
             };
         }, 
 

@@ -17,10 +17,13 @@
 
                     <form @submit.prevent="addEmail">
                         <div class="modal-body">
-                            ...
+                            <div class="form-group">
+                                <label for="exampleFormControlInput1"></label>
+                                <input v-model="email" type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                            </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Back</button>
+                            <button @click="clearEmail" type="button" class="btn btn-secondary" data-dismiss="modal">Back</button>
                             <button type="submit" class="btn btn-primary">Save</button>
                         </div>
                     </form>
@@ -35,6 +38,20 @@
 
     export default {
 
+        props: {
+            userId: {
+                type: Number,
+                required: true
+            }
+        },
+
+        data() {
+            return {               
+                email: "", 
+                id: this.userId              
+            };
+        }, 
+
         methods: {
 
             openModal() {
@@ -42,7 +59,20 @@
             }, 
 
             addEmail() {
-                alert("zdravo");
+                axios.post('/api/emails', {
+                    id: this.id,
+                    address: this.email
+                })
+                .then((response) => {
+                    $('#exampleModalCenter').modal('hide');                 
+                    })           
+                .catch(error => {
+                    console.log(error);                  
+                });                
+            },
+
+            clearEmail() {
+                this.email = "";
             },
 
         },
