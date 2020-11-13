@@ -13,8 +13,6 @@ class EmailController extends Controller
 {
     public function store(StoreEmail $request)
     {
-    	dd($request->input('id'));
-
     	$user = User::findOrFail($request->input('id'));
 
     	$email = $user->emails()->create([

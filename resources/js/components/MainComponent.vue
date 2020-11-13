@@ -8,6 +8,7 @@
         </select>
         </div>
 
+        <add-email @addEmailEvent="loadUsers" :users=users></add-email>
 
         <table class="table table-striped">
             <thead>
@@ -16,7 +17,6 @@
                     <th scope="col">Name</th>
                     <th scope="col">Email Addresses</th>
                     <th scope="col">Departments</th>
-                    <th scope="col">Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -25,16 +25,16 @@
                     <td>{{ user.name }}</td>
                     <td>
                         <span v-for="email in user.emails" :key="email.id">   
-                            {{ email.address }}/
+                            / {{ email.address }}
                         </span>
                     </td>
                     <td>
                         <span v-for="department in user.departments" :key="department.id">   
-                            {{ department.name }}/
+                            / {{ department.name }}
                         </span>
                     </td>
                     <td>
-                        <add-email :userId="user.id"></add-email>
+                        
                     </td>
                 </tr>                   
             </tbody>
@@ -43,11 +43,8 @@
 </template>
 
 <script>
-
 import AddEmail from "../components/AddEmail";
-
     export default {
-
         components: {
             AddEmail,  
         },
@@ -55,10 +52,9 @@ import AddEmail from "../components/AddEmail";
         data() {
             return {
                 loading: false,
-                users: null, 
+                users: [], 
                 departments: [],
-                queryslug: "",
-
+                queryslug: "",  
             };
         }, 
 
@@ -68,7 +64,6 @@ import AddEmail from "../components/AddEmail";
         },
 
         methods: {
-
             loadUsers: function () {
                 this.loading = true;
                 axios.get(`/api/users?department=${this.queryslug}`)
@@ -81,7 +76,6 @@ import AddEmail from "../components/AddEmail";
                         this.loading = false;
                     });
             },
-
             loadDepartments: function () {           
                 axios.get(`/api/departments`)
                     .then((response) => {
@@ -91,19 +85,14 @@ import AddEmail from "../components/AddEmail";
                         console.log(error);                  
                     });
             },
-
         },
-
+        
         watch: {
             queryslug: {
             handler: 'loadUsers',
             deep: true          
             }
         },    
-
     }
 </script>
 
-<style>
-
-</style>

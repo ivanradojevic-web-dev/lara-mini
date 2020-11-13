@@ -8,6 +8,6 @@ use Faker\Generator as Faker;
 $factory->define(Email::class, function (Faker $faker) {
     return [
     	'address' => $faker->unique()->safeEmail,
-        'user_id' => factory(App\User::class),
+        'user_id' => $faker->numberBetween($min = 1, $max = 10),
     ];
 });

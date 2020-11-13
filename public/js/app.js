@@ -1944,34 +1944,50 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
-    userId: {
-      type: Number,
+    users: {
+      type: Array,
       required: true
     }
   },
   data: function data() {
     return {
       email: "",
-      id: this.userId
+      id: "",
+      errorMessage: ""
     };
   },
   methods: {
-    openModal: function openModal() {
+    openModal: function openModal(user) {
       $('#exampleModalCenter').modal('show');
     },
     addEmail: function addEmail() {
+      var _this = this;
+
       axios.post('/api/emails', {
         id: this.id,
         address: this.email
       }).then(function (response) {
         $('#exampleModalCenter').modal('hide');
+
+        _this.clearEmail();
+
+        _this.$emit("addEmailEvent");
       })["catch"](function (error) {
-        console.log(error);
+        var key = Object.keys(error.response.data.errors)[0];
+        _this.errorMessage = error.response.data.errors[key][0];
       });
     },
     clearEmail: function clearEmail() {
+      this.id = "";
       this.email = "";
     }
   }
@@ -2041,7 +2057,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       loading: false,
-      users: null,
+      users: [],
       departments: [],
       queryslug: ""
     };
@@ -37681,7 +37697,7 @@ var render = function() {
         attrs: { href: "#" },
         on: { click: _vm.openModal }
       },
-      [_vm._v("Insert")]
+      [_vm._v("Insert Email")]
     ),
     _vm._v(" "),
     _c(
@@ -37719,10 +37735,58 @@ var render = function() {
                 },
                 [
                   _c("div", { staticClass: "modal-body" }, [
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("label", {
-                        attrs: { for: "exampleFormControlInput1" }
+                    _vm.errorMessage
+                      ? _c("div", { staticClass: "text-danger" }, [
+                          _vm._v(_vm._s(_vm.errorMessage))
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _c("label", [_vm._v("Choose User")]),
+                    _vm._v(" "),
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.id,
+                            expression: "id"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.id = $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          }
+                        }
+                      },
+                      _vm._l(_vm.users, function(user) {
+                        return _c(
+                          "option",
+                          { key: user.id, domProps: { value: user.id } },
+                          [_vm._v(_vm._s(user.name))]
+                        )
                       }),
+                      0
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group mt-4" }, [
+                      _c(
+                        "label",
+                        { attrs: { for: "exampleFormControlInput1" } },
+                        [_vm._v("Address")]
+                      ),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
@@ -37829,103 +37893,112 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("div", { staticClass: "container", staticStyle: { width: "480px" } }, [
-      _c("h6", [_vm._v("Select Department")]),
-      _vm._v(" "),
-      _c(
-        "select",
-        {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.queryslug,
-              expression: "queryslug"
+  return _c(
+    "div",
+    [
+      _c("div", { staticClass: "container", staticStyle: { width: "480px" } }, [
+        _c("h6", [_vm._v("Select Department")]),
+        _vm._v(" "),
+        _c(
+          "select",
+          {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.queryslug,
+                expression: "queryslug"
+              }
+            ],
+            staticClass: "form-control",
+            on: {
+              change: function($event) {
+                var $$selectedVal = Array.prototype.filter
+                  .call($event.target.options, function(o) {
+                    return o.selected
+                  })
+                  .map(function(o) {
+                    var val = "_value" in o ? o._value : o.value
+                    return val
+                  })
+                _vm.queryslug = $event.target.multiple
+                  ? $$selectedVal
+                  : $$selectedVal[0]
+              }
             }
-          ],
-          staticClass: "form-control",
-          on: {
-            change: function($event) {
-              var $$selectedVal = Array.prototype.filter
-                .call($event.target.options, function(o) {
-                  return o.selected
-                })
-                .map(function(o) {
-                  var val = "_value" in o ? o._value : o.value
-                  return val
-                })
-              _vm.queryslug = $event.target.multiple
-                ? $$selectedVal
-                : $$selectedVal[0]
-            }
-          }
-        },
-        [
-          _c(
-            "option",
-            { staticClass: "font-weight-bold", attrs: { value: "" } },
-            [_vm._v("All Users")]
-          ),
-          _vm._v(" "),
-          _vm._l(_vm.departments, function(department) {
-            return _c(
+          },
+          [
+            _c(
               "option",
-              { key: department.id, domProps: { value: department.slug } },
-              [_vm._v(_vm._s(department.name))]
-            )
-          })
-        ],
-        2
-      )
-    ]),
-    _vm._v(" "),
-    _c("table", { staticClass: "table table-striped" }, [
-      _vm._m(0),
+              { staticClass: "font-weight-bold", attrs: { value: "" } },
+              [_vm._v("All Users")]
+            ),
+            _vm._v(" "),
+            _vm._l(_vm.departments, function(department) {
+              return _c(
+                "option",
+                { key: department.id, domProps: { value: department.slug } },
+                [_vm._v(_vm._s(department.name))]
+              )
+            })
+          ],
+          2
+        )
+      ]),
       _vm._v(" "),
-      _c(
-        "tbody",
-        _vm._l(_vm.users, function(user) {
-          return _c("tr", { key: user.id }, [
-            _c("th", { attrs: { scope: "row" } }, [_vm._v(_vm._s(user.id))]),
-            _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(user.name))]),
-            _vm._v(" "),
-            _c(
-              "td",
-              _vm._l(user.emails, function(email) {
-                return _c("span", { key: email.id }, [
-                  _vm._v(
-                    "   \n                        " +
-                      _vm._s(email.address) +
-                      "/\n                    "
-                  )
-                ])
-              }),
-              0
-            ),
-            _vm._v(" "),
-            _c(
-              "td",
-              _vm._l(user.departments, function(department) {
-                return _c("span", { key: department.id }, [
-                  _vm._v(
-                    "   \n                        " +
-                      _vm._s(department.name) +
-                      "/\n                    "
-                  )
-                ])
-              }),
-              0
-            ),
-            _vm._v(" "),
-            _c("td", [_c("add-email", { attrs: { userId: user.id } })], 1)
-          ])
-        }),
-        0
-      )
-    ])
-  ])
+      _c("add-email", {
+        attrs: { users: _vm.users },
+        on: { addEmailEvent: _vm.loadUsers }
+      }),
+      _vm._v(" "),
+      _c("table", { staticClass: "table table-striped" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c(
+          "tbody",
+          _vm._l(_vm.users, function(user) {
+            return _c("tr", { key: user.id }, [
+              _c("th", { attrs: { scope: "row" } }, [_vm._v(_vm._s(user.id))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(user.name))]),
+              _vm._v(" "),
+              _c(
+                "td",
+                _vm._l(user.emails, function(email) {
+                  return _c("span", { key: email.id }, [
+                    _vm._v(
+                      "   \n                        / " +
+                        _vm._s(email.address) +
+                        "\n                    "
+                    )
+                  ])
+                }),
+                0
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                _vm._l(user.departments, function(department) {
+                  return _c("span", { key: department.id }, [
+                    _vm._v(
+                      "   \n                        / " +
+                        _vm._s(department.name) +
+                        "\n                    "
+                    )
+                  ])
+                }),
+                0
+              ),
+              _vm._v(" "),
+              _c("td")
+            ])
+          }),
+          0
+        )
+      ])
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {
@@ -37940,9 +38013,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Email Addresses")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Departments")]),
-        _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Actions")])
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Departments")])
       ])
     ])
   }

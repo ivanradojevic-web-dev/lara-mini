@@ -28,4 +28,11 @@ class StoreEmail extends FormRequest
             'address' => ['required', 'string', 'email', 'max:255', 'unique:emails'],
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'id.required' => 'Please, select a user',         
+        ];
+    }
 }
