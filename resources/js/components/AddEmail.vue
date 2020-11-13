@@ -80,6 +80,7 @@
             clearEmail() {
                 this.id = "";
                 this.email = "";
+                this.errorMessage: "",
             },
         },
     }
